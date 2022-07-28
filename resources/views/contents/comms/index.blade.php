@@ -42,7 +42,7 @@
     <div class="list-group">
         <div class="container mt-1">
             <!-- Fix extra underline in the bottom -->
-            @foreach ($filtered_feedbacks as $filtered_feedback)
+            @foreach ($filtered_feedbacks->reverse() as $filtered_feedback)
             <a href="{{ route('view-feedback', [$filtered_feedback->user_id, $filtered_feedback->id]) }}" class="list-group-item list-group-item-action" aria-current="true">
                 <small class="text-end">{{ $filtered_feedback->created_at->format('F j Y, g:i a') }}</small>
                 <h5 class="my-1">{{ $filtered_feedback->message }}</h5>
