@@ -24,14 +24,18 @@ class FeedbackController extends Controller
         if (Session::has('loginId') && $user->role == 'tse') {
 
             $triages = Triage::where('assigned_to', '=', $user->name)->get();
+            $feedback_container = array();
             $feedbacks = Feedback::all();
             foreach ($triages as $triage) {
-                $feedbacks = Feedback::where('id', '=', $triage->feedback_id)->whereNot(function ($query) {
-                    $query->where('status', '=', 'DONE');
-                })->get();
-
+                $feedbacks = Feedback::where('id', '=', $triage->feedback_id)->get();
                 if (!$feedbacks->isEmpty()) {
-                    array_push($filtered_feedbacks, $feedbacks);
+                    array_push($feedback_container, $feedbacks);
+                }
+            }
+
+            foreach($feedback_container as $feedback) {
+                if($feedback[0]['status'] != 'DONE') {
+                    array_push($filtered_feedbacks, $feedback);
                 }
             }
 
