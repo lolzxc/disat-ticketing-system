@@ -42,20 +42,22 @@
     <div class="list-group">
         <div class="container mt-1">
             <!-- Fix extra underline in the bottom -->
-            @for ($i=sizeof($filtered_feedbacks)-1;$i>0;$i--) 
-            <a href="{{ route('view-feedback', [$filtered_feedbacks[$i]['user_id'], $filtered_feedbacks[$i]['id']]) }}" class="list-group-item list-group-item-action" aria-current="true">
-                <small class="text-end">{{ $filtered_feedbacks[$i]['created_at']->format('F j Y, g:i a') }}</small>
-                <h5 class="my-1">{{ $filtered_feedbacks[$i]['message'] }}</h5>
-                <small class="border rounded-pill mt-1 p-1 border-primary d-inline-block">{{ $filtered_feedbacks[$i]['system'] }}</small>
-                <small class="border rounded-pill mt-1 p-1 border-primary d-inline-block">{{ $filtered_feedbacks[$i]['module'] }}</small>
+            @foreach ($filtered_feedbacks as $filtered_feedback)
+            <a href="{{ route('view-feedback', [$filtered_feedback->user_id, $filtered_feedback->id]) }}" class="list-group-item list-group-item-action" aria-current="true">
+                <small class="text-end">{{ $filtered_feedback->created_at->format('F j Y, g:i a') }}</small>
+                <h5 class="my-1">{{ $filtered_feedback->message }}</h5>
+                <small class="border rounded-pill mt-1 p-1 border-primary d-inline-block">{{ $filtered_feedback->system }}</small>
+                <small class="border rounded-pill mt-1 p-1 border-primary d-inline-block">{{ $filtered_feedback->module }}</small>
                 <br>
-                <small>Triage Received By:</small>
+                <small>Feedback by: To be Implemented</small>
                 <br>
-                <small>TSE Received By: </small>
+                <small>Worked by Triage Engineer: To be Implemented</small>
                 <br>
-                <small class="border rounded-pill mt-1 p-1 text-center d-inline-block text-white fs-5 fw-bold" style="background-color: brown">{{ $filtered_feedbacks[$i]['status'] }}</small>
+                <small>Worked by Tech Support Engineer: To be Implemented</small>
+                <br>
+                <small class="border rounded-pill mt-1 p-1 text-center d-inline-block text-white fs-5 fw-bold" style="background-color: brown">{{ $filtered_feedback->status }}</small>
             </a>
-            @endfor
+            @endforeach
         </div>
     </div>
 </div>

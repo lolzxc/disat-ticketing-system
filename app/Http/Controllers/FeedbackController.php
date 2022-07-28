@@ -53,23 +53,34 @@ class FeedbackController extends Controller
 
         if (Session::has('loginId') && $user->role == 'comms') {
             // TODO 
-            $filtered_feedbacks = Feedback::whereNot('status', '=', 'CONFIRMED OK')->get();
-            $contains_triage = array();
-            $contains_owner = array();
-            $feedbacks = Feedback::all();
-            foreach ($feedbacks as $feedback) {
-                $triages = Triage::where('feedback_id', '=', $feedback->id)->get();
-                if (!$triages->isEmpty()) {
-                    foreach ($triages as $triage) {
-                        $triage_engr = User::where('id', '=', $triage->triage_engr_id)->first();
-                        $tse = User::where('name', '=', $triage->assigned_to)->first();
-                        array_push($contains_triage, $triage_engr);
-                        array_push($contains_owner, $tse);
+            $filtered_feedbacks = Feedback::all();
+
+           
+            if(!$filtered_feedbacks->isEmpty()) {
+                $contains_triage = array();
+                $contains_tse = array();
+                $contains_user = array();
+                
+                foreach ($filtered_feedbacks as $feedback) {
+                    if($feedback->status == 'CONFIRMED OK') {
+                        break;
+                    }
+
+                    array_push($contains_user, $feedback);
+                    $triages = Triage::where('feedback_id', '=', $feedback->id)->get();
+                    if (!$triages->isEmpty()) {
+                        foreach ($triages as $triage) {
+                            $triage_engr = User::where('id', '=', $triage->triage_engr_id)->first();
+                            $tse = User::where('name', '=', $triage->assigned_to)->first();
+                            array_push($contains_triage, $triage_engr);
+                            array_push($contains_tse, $tse);
+                        }
                     }
                 }
+    
+                return view('contents.' . $user->role . '.index', compact('user', 'contains_triage', 'contains_tse', 'contains_user'))->with('filtered_feedbacks', $filtered_feedbacks);
             }
-
-            return view('contents.' . $user->role . '.index', compact('user', 'contains_triage', 'contains_owner'))->with('filtered_feedbacks', $filtered_feedbacks);
+            return 'test';
         }
     }
 
