@@ -70,15 +70,15 @@ class FeedbackController extends Controller
                 ->join('triages', 'users.id', '=', 'triages.triage_engr_id')
                 ->select('users.name')
                 ->first();
-            
 
-            if($filtered_feedbacks){
-                foreach($filtered_feedbacks as $filtered_feedback) {
+
+            if ($filtered_feedbacks) {
+                foreach ($filtered_feedbacks as $filtered_feedback) {
 
                     array_push($sample, $filtered_feedback);
                 }
             }
-            return view('contents.' . $user->role . '.index', compact('user','sample'));
+            return view('contents.' . $user->role . '.index', compact('user', 'sample'));
             // return view('contents.' . $user->role . '.index', compact('user', 'contains_triage', 'contains_tse', 'contains_user'))->with('filtered_feedbacks', $filtered_feedbacks);
         }
     }
@@ -92,19 +92,22 @@ class FeedbackController extends Controller
             'system' => 'required',
             'module' => 'required',
             'message' => 'required',
-            'screen_shot' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'screen_shot' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        $screenshotName = 'feedback' . time() . '.' . $request->screen_shot->extension();
-        $request->screen_shot->move(public_path('images'), $screenshotName);
+        if ($request->screen_shot) {
+            $screenshotName = 'feedback' . time() . '.' . $request->screen_shot->extension();
+            $request->screen_shot->move(public_path('images'), $screenshotName);
 
-        Feedback::create([
-            'user_id' => $request->id,
-            'system' => $request->system,
-            'module' => $request->module,
-            'message' => $request->message,
-            'screen_shot' => $screenshotName
-        ]);
+            Feedback::create([
+                'user_id' => $request->id,
+                'system' => $request->system,
+                'module' => $request->module,
+                'message' => $request->message,
+                'screen_shot' => $screenshotName
+            ]);
+        }
+
 
         return view('contents.' . $user->role . '.index', compact('user'))->with('success', true);
     }
