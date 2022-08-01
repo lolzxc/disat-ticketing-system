@@ -16,7 +16,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200&display=swap');
         body {
-            font-family: 'Roboto Mono', monospace;
+            background-color: #08519C;
+            font-family: 'Calibri';
+            font-size: 1.5rem;
+        }
+        .title {
+            color: #ffc800;
         }
     </style>
     
