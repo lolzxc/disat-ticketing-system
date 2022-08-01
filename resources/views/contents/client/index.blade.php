@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('stylesheet')
+
 <style>
-    html,
-    body {
-        background-color: #00A1FC;
-    }
+
 </style>
+
 @endsection
 @section('content')
 
@@ -31,95 +30,102 @@
 
 
 <div class="container text-white">
-    @if($success)
-    <div class="alert alert-success">
-        Feedback Successfully Added!
+    <div class="container-sm">
+        @if($success)
+        <div class="alert alert-success">
+            Feedback Successfully Added!
+        </div>
+        @endif
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        <div class="row">
+            <div class="col">
+                <p class="border-bottom border-white border-1 text-center d-flex justify-content-center flex-column p-5 title-fill-details">Fill Out The Details</p>
+            </div>
+        </div>
+
+        <form class="d-grid gap-3" action="{{ route('add-feedback') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+
+            <input type="hidden" name="id" value="{{ $user->id }}">
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">System</p>
+                    </div>
+
+                    <div class="col-8">
+                        <div class="form-group">
+                            <select class="form-control details" name="system" id="exampleFormControlSelect1">
+                                <option value="ACADEMICS">ACADEMICS</option>
+                                <option value="REGISTRAR">REGISTRAR</option>
+                                <option value="FINANCE">FINANCE</option>
+                                <option value="NETWORK">NETWORK</option>
+                                <option value="HARDWARE">HARDWARE</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Module</p>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <select class="form-control details" name="module" id="exampleFormControlSelect1">
+                                <option value="ECRS">ECRS</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row d-flex justify-content-center text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Message</p>
+                    </div>
+                    <div class="col-8 text-center">
+                        <div class="form-group">
+                            <textarea class="form-control details" name="message" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 fw-bold d-flex flex-column align-items-center fw-bold">Screen Shot</p>
+                    </div>
+                    <div class="col-8">
+                        <input class="form-control details" type="file" name="screen_shot">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mb-2 pb-2">
+                    <div class="col text-center flex-grow-1 align-item-end">
+                        <input class="btn btn-light w-100 btn-lg text-center text-primary fw-bold" type="submit" value="Submit" id="submit_button"></button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-    @endif
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-    <div class="row">
-        <div class="col">
-            <p class="border-bottom border-white border-1 text-center p-5 fs-1 ">Fill Out The Details</p>
-        </div>
-    </div>
-
-    <form class="d-grid gap-3" action="{{ route('add-feedback') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <input type="hidden" name="id" value="{{ $user->id }}">
-        <div class="row">
-            <div class="col-4 text-center">
-                <p class="text-end mt-1 mb-0">System</p>
-            </div>
-
-            <div class="col-8">
-                <div class="form-group">
-                    <select class="form-control" name="system" id="exampleFormControlSelect1">
-                        <option value="ACADEMICS">ACADEMICS</option>
-                        <option value="REGISTRAR">REGISTRAR</option>
-                        <option value="FINANCE">FINANCE</option>
-                        <option value="NETWORK">NETWORK</option>
-                        <option value="HARDWARE">HARDWARE</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-4">
-                <p class="text-end mt-1 mb-0">Module</p>
-            </div>
-            <div class="col-8">
-                <div class="form-group">
-                    <select class="form-control" name="module" id="exampleFormControlSelect1">
-                        <option value="ECRS">ECRS</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-4">
-                <p class="text-end">Message</p>
-            </div>
-            <div class="col-8 text-center">
-                <div class="form-group">
-                    <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="5"></textarea>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-4">
-                <p class="text-end mt-1 mb-0">Screen Shot</p>
-            </div>
-            <div class="col-8 text-center">
-                <div class="mb-3">
-                    <input class="form-control" type="file" name="screen_shot">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col text-center flex-grow-1 align-item-end">
-                <input class="btn btn-light w-25 btn-lg text-center text-primary fw-bold" type="submit" value="Submit" id="submit_button"></button>
-            </div>
-
-        </div>
-    </form>
-
 </div>
 
 
