@@ -27,12 +27,8 @@
 <div class="content text-white d-flex flex-grow-1 flex-column h-100">
     <div class="container">
         <div class="header d-flex justify-content-center align-items-center pt-5 border-bottom border-white">
-            <div class="title">
-                <span class="fw-bold fs-1 mb-1">Feedbacks Issued</span>
-            </div>
-            
+            <span class="title mb-1 text-center title-main">Feedbacks Issued</span>
         </div>
-
     </div>
 
     <div class="list-group">

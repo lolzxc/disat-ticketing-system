@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Triage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class FeedbackController extends Controller
 {
@@ -33,8 +34,8 @@ class FeedbackController extends Controller
                 }
             }
 
-            foreach($feedback_container as $feedback) {
-                if($feedback[0]['status'] != 'DONE') {
+            foreach ($feedback_container as $feedback) {
+                if ($feedback[0]['status'] != 'DONE') {
                     array_push($filtered_feedbacks, $feedback);
                 }
             }
@@ -56,35 +57,29 @@ class FeedbackController extends Controller
         }
 
         if (Session::has('loginId') && $user->role == 'comms') {
-            // TODO 
-            $filtered_feedbacks = Feedback::all();
+            $sample = array();
 
-           
-            if(!$filtered_feedbacks->isEmpty()) {
-                $contains_triage = array();
-                $contains_tse = array();
-                $contains_user = array();
-                
-                foreach ($filtered_feedbacks as $feedback) {
-                    if($feedback->status == 'CONFIRMED OK') {
-                        break;
-                    }
+            $filtered_feedbacks = DB::table('feedback')
+                ->join('triages', 'feedback.id', '=', 'triages.feedback_id')
+                ->join('tech_supports', 'feedback.id', '=', 'tech_supports.feedback_id')
+                ->join('users', 'feedback.user_id', '=', 'users.id')
+                ->select('feedback.*', 'users.name')
+                ->get();
 
-                    array_push($contains_user, $feedback);
-                    $triages = Triage::where('feedback_id', '=', $feedback->id)->get();
-                    if (!$triages->isEmpty()) {
-                        foreach ($triages as $triage) {
-                            $triage_engr = User::where('id', '=', $triage->triage_engr_id)->first();
-                            $tse = User::where('name', '=', $triage->assigned_to)->first();
-                            array_push($contains_triage, $triage_engr);
-                            array_push($contains_tse, $tse);
-                        }
-                    }
+            $triage = DB::Table('users')
+                ->join('triages', 'users.id', '=', 'triages.triage_engr_id')
+                ->select('users.name')
+                ->first();
+            
+
+            if($filtered_feedbacks){
+                foreach($filtered_feedbacks as $filtered_feedback) {
+
+                    array_push($sample, $filtered_feedback);
                 }
-    
-                return view('contents.' . $user->role . '.index', compact('user', 'contains_triage', 'contains_tse', 'contains_user'))->with('filtered_feedbacks', $filtered_feedbacks);
             }
-            return 'test';
+            return view('contents.' . $user->role . '.index', compact('user','sample'));
+            // return view('contents.' . $user->role . '.index', compact('user', 'contains_triage', 'contains_tse', 'contains_user'))->with('filtered_feedbacks', $filtered_feedbacks);
         }
     }
 

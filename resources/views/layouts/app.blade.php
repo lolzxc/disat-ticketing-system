@@ -14,15 +14,59 @@
     
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200&display=swap');
+
         body {
             background-color: #08519C;
             font-family: 'Calibri';
-            font-size: 1.5rem;
+            font-size: 2rem;
+            margin: 0;
         }
-        .title {
+        .title-main {
+            font-size: 4rem;
             color: #ffc800;
+            font-weight: bold;
         }
+        .details {
+        font-size: 2.5rem;
+        color: black;
+        }
+        .title-faq {
+            font-size: 4rem;
+            color: lightgreen;
+        }
+        @media only screen and (max-width:600px) {
+            body {
+                font-size: 1.25rem;
+            }
+            .details {
+                font-size: 1.5rem;
+            }
+            .title-main {
+                font-size: 3rem;
+            }
+
+            .title-faq {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media only screen and (min-width:601px) and (max-width:767px) {
+            body {
+                font-size: 1.5rem;
+            }
+            .details {
+                font-size: 2rem;
+            }
+            .title-main {
+                font-size: 4rem;
+            }
+
+            .title-faq {
+                font-size: 3rem;
+            }
+        }
+       
+        
     </style>
     
     
