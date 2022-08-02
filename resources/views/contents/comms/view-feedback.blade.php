@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('stylesheet')
-<style>
 
-</style>
 @endsection
 @section('content')
 
@@ -41,7 +39,7 @@
 
         <div class="row">
             <div class="col title-main">
-                <p class="border-bottom border-white fw-bold border-1 text-center p-5 fw-bold">Feedback Details</p>
+                <p class="border-bottom border-white fw-bold border-1 text-center p-5 fw-bold d-flex flex-column align-items-center">Feedback Details</p>
             </div>
         </div>
 
@@ -49,7 +47,7 @@
             <div class="container">
                 <div class="row d-flex justify-content-center align-items-center text-center">
                     <div class="col-4">
-                        <p class="mt-1 mb-0 fw-bold">Ticket Number</p>
+                        <p class="mt-1 mb-0 fw-bold d-flex flex-column align-items-center">Ticket Number</p>
                     </div>
 
                     <div class="col-8">
@@ -87,7 +85,7 @@
             <div class="container">
                 <div class="row d-flex justify-content-center align-items-center text-center">
                     <div class="col-4">
-                        <p class="mt-1 mb-0 fw-bold">School</p>
+                        <p class="mt-1 mb-0 fw-bold d-flex flex-column align-items-center">School</p>
                     </div>
 
                     <div class="col-8">
@@ -99,7 +97,7 @@
             <div class="container">
                 <div class="row d-flex justify-content-center align-items-center text-center">
                     <div class="col-4">
-                        <p class="mt-1 mb-0 fw-bold">Level/Year</p>
+                        <p class="mt-1 mb-0 fw-bold d-flex flex-column align-items-center">Level/Year</p>
                     </div>
 
                     <div class="col-8">
@@ -111,7 +109,7 @@
             <div class="container">
                 <div class="row mb-2 d-flex justify-content-center align-items-center text-center">
                     <div class="col-4">
-                        <p class="mt-1 mb-0 fw-bold">Section</p>
+                        <p class="mt-1 mb-0 fw-bold d-flex flex-column align-items-center">Section</p>
                     </div>
 
                     <div class="col-8">
@@ -126,7 +124,7 @@
         <div class="container justify-content-center align-items-center text-center">
             <div class="row ">
                 <div class="col title-faq">
-                    <p class="border-bottom border-white border-1 text-center p-5 d-flex flex-column align-items-center fw-bold">FAQ's Basic/Troubleshooting Guide</p>
+                    <p class="border-bottom border-white border-1 text-center p-5 d-flex flex-column align-items-center fw-bold">FAQ's Basic / Troubleshooting Guide</p>
                 </div>
             </div>
         </div>
