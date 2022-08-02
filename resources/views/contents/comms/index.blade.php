@@ -33,7 +33,6 @@
 
     <div class="list-group">
         <div class="container mt-1">
-            <!-- Fix extra underline in the bottom -->
 
             @foreach ($sample as $filtered_feedback)
             <a href="{{ route('view-feedback', [$filtered_feedback->user_id, $filtered_feedback->id]) }}" class="list-group-item list-group-item-action" aria-current="true">
