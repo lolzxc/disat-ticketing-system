@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('triage_engr_id');
             $table->text('assessment');
             $table->text('solution');
-            $table->string('screen_shot');
+            $table->string('screen_shot')->nullable();
             $table->string('assigned_to');
             $table->timestamps();
         });
