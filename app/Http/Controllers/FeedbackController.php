@@ -88,10 +88,11 @@ class FeedbackController extends Controller
 
     public function add_feedback(Request $request)
     {
+        // TODO FIX WiTH SUCCESS
         $user = array();
         $user = User::where('id', '=', Session::get('loginId'))->first();
-
-
+        // $feedback = Feedback::latest('id')->first();
+        // $feedback = $feedback->id;
 
         $request->validate([
             'system' => 'required',
@@ -122,8 +123,8 @@ class FeedbackController extends Controller
             ]);
         }
 
-
-        return view('contents.' . $user->role . '.index', compact('user'))->with('success', true);
+        return redirect('/index')->with('success',true);
+        // return view('contents.' . $user->role . '.index', compact('user', 'feedback'))->with('success', true);
     }
 
     public function view_feedback($user_id, $id)
