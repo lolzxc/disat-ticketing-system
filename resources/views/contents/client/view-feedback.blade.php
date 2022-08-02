@@ -2,10 +2,6 @@
 
 @section('stylesheet')
 <style>
-    html,
-    body {
-        background-color: #00A1FC;
-    }
 </style>
 @endsection
 @section('content')
@@ -19,7 +15,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav">
-                <a href="{{ route('feedback-list', $user->id) }}" class="nav-link">Feedback List</a>
+                <a href="{{ route('feedback-list', $user->id) }}" class="nav-link fs-5">Feedback List</a>
             </div>
             <div class="fs-5 ms-auto">
                 Hello, <span class="text-primary">{{ $user -> name }}!</span> <br>
@@ -33,67 +29,93 @@
 <div class="container text-white">
     <div class="row">
         <div class="col">
-            <p class="border-bottom border-white border-1 text-center p-5 fs-1 ">Feedback Details</p>
+            <p class="border-bottom border-white border-1 text-center p-5 title-fill-details ">Feedback Details</p>
         </div>
     </div>
 
     <div class="d-grid gap-3">
-       
-        <div class="row d-flex align-items-baseline">
-            <div class="col-4 text-center">
-                <p class="text-end mt-1 mb-0">Feedback ID</p>
-            </div>
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center text-center">
+                <div class="col-4">
+                    <p class="mt-1 mb-0 fw-bold">Ticket Number</p>
+                </div>
 
-            <div class="col-8">
-                <input type="text" class="form-control-plaintext text-light" value="{{ $feedback->id }}" readonly>
+                <div class="col-8">
+                    <div>
+
+                        <input type="text" class="form-control details flex-nowrap" value="{{ $feedback->id }}" readonly>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center text-center">
+                <div class="col-4">
+                    <p class="mt-1 mb-0 fw-bold">System</p>
+                </div>
 
-        <div class="row d-flex align-items-baseline">
-            <div class="col-4 text-center">
-                <p class="text-end mt-1 mb-0">System</p>
-            </div>
+                <div class="col-8">
+                    <div>
 
-            <div class="col-8">
-                <input type="text" class="form-control-plaintext text-light" value="{{ $feedback->system }}" readonly>
+                        <input type="text" class="form-control details flex-nowrap" value="{{ $feedback->system }}" readonly>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center text-center">
+                <div class="col-4">
+                    <p class="mt-1 mb-0 fw-bold">Module</p>
+                </div>
 
-        <div class="row d-flex align-items-baseline">
-            <div class="col-4">
-                <p class="text-end mt-1 mb-0">Module</p>
-            </div>
-            <div class="col-8">
-                <input type="text" class="form-control-plaintext text-light" value="{{ $feedback->module }}" readonly>
-            </div>
-        </div>
+                <div class="col-8">
+                    <div>
 
-        <div class="row d-flex align-items-baseline">
-            <div class="col-4">
-                <p class="text-end">Message</p>
-            </div>
-            <div class="col-8 text-center text-primary">
-                <div class="form-group text-primary">
-                    <textarea class="form-control-plaintext text-light" name="concern" id="exampleFormControlTextarea1" rows="5" readonly>{{ $feedback->message }}</textarea>
+                        <input type="text" class="form-control details flex-nowrap" value="{{ $feedback->module }}" readonly>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="row d-flex align-items-center">
-            <div class="col-4">
-                <p class="text-end mt-1 mb-0">Actions Taken</p>
-            </div>
-            <div class="col-8">
-                <input type="text" class="form-control-plaintext text-light" value="{{ $feedback->module }}" readonly>
+        <div class="container">
+            <div class="row d-flex justify-content-center text-center">
+                <div class="col-4">
+                    <p class="mt-1 mb-0 fw-bold">Message</p>
+                </div>
+
+                <div class="col-8">
+                    <div class="form-group text-primary">
+                        <textarea class="form-control details" name="concern" id="exampleFormControlTextarea1" rows="5" readonly>{{ $feedback->message }}</textarea>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="row d-flex align-items-center">
-            <div class="col-4">
-                <p class="text-end mt-1 mb-0">Status</p>
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center text-center">
+                <div class="col-4">
+                    <p class="mt-1 mb-0 fw-bold">Actions Taken</p>
+                </div>
+
+                <div class="col-8">
+                    <div>
+                        <input type="text" class="form-control details flex-nowrap" value="" readonly>
+                    </div>
+                </div>
             </div>
-            <div class="col-8">
-                <input type="text" class="form-control-plaintext text-light" value="{{ $feedback->status }}" readonly>
+        </div>
+
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center text-center mb-2">
+                <div class="col-4">
+                    <p class="mt-1 mb-0 fw-bold">Status</p>
+                </div>
+
+                <div class="col-8">
+                    <div>
+                        <input type="text" class="form-control details flex-nowrap" value="{{ $feedback->status }}" readonly>
+                    </div>
+                </div>
             </div>
         </div>
 

@@ -2,10 +2,7 @@
 
 @section('stylesheet')
 <style>
-    html,
-    body {
-        background-color: #00A1FC;
-    }
+
 </style>
 @endsection
 @section('content')
@@ -35,7 +32,7 @@
 <div class="content text-white d-flex flex-grow-1 flex-column h-100">
     <div class="container">
         <div class="header d-flex justify-content-center align-items-center pt-5 border-bottom border-white">
-            <span class="fw-bold fs-1 mb-1">Feedbacks Issued</span>
+            <span class="fw-bold mb-1 title-main">Feedbacks Issued</span>
         </div>
 
     </div>
@@ -45,7 +42,7 @@
             @foreach ($feedbacks as $feedback)
             <a href="{{ route('view-feedback', [$feedback->user_id, $feedback->id]) }}" class="list-group-item list-group-item-action" aria-current="true">
                 <small class="text-end">{{ $feedback->updated_at->format('F j Y, g:i a') }}</small>
-                <h5 class="mb-1">{{ $feedback->message }}</h5>
+                <h4 class="mb-1">{{ $feedback->message }}</h5>
                 <small class="border rounded-pill p-1 border-primary d-inline-block">{{ $feedback->system }}</small>
                 <small class="border rounded-pill p-1 border-primary d-inline-block">{{ $feedback->module }}</small>
                 <br>

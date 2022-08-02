@@ -19,7 +19,10 @@ class FeedbackController extends Controller
         $user = User::where('id', '=', Session::get('loginId'))->first();
 
         if (Session::has('loginId') && $user->role == 'client') {
-            return view('contents.' . $user->role . '.index', compact('user'))->with('success', false);
+            $feedback = Feedback::latest('id')->first();
+            $feedback = $feedback->id + 1;
+
+            return view('contents.' . $user->role . '.index', compact('user',  'feedback'))->with('success', false);
         }
 
         if (Session::has('loginId') && $user->role == 'tse') {
@@ -88,6 +91,8 @@ class FeedbackController extends Controller
         $user = array();
         $user = User::where('id', '=', Session::get('loginId'))->first();
 
+
+
         $request->validate([
             'system' => 'required',
             'module' => 'required',
@@ -105,6 +110,15 @@ class FeedbackController extends Controller
                 'module' => $request->module,
                 'message' => $request->message,
                 'screen_shot' => $screenshotName
+            ]);
+        }
+
+        if (!$request->screen_shot) {
+            Feedback::create([
+                'user_id' => $request->id,
+                'system' => $request->system,
+                'module' => $request->module,
+                'message' => $request->message,
             ]);
         }
 

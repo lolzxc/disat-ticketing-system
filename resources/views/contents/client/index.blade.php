@@ -18,7 +18,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav">
-                <a href="{{ route('feedback-list', $user->id) }}" class="nav-link">Feedback List</a>
+                <a href="{{ route('feedback-list', $user->id) }}" class="nav-link fs-5">Feedback List</a>
             </div>
             <div class="fs-5 ms-auto text-center">
                 Hello, <span class="text-primary">{{ $user -> name }}!</span> <br>
@@ -45,11 +45,23 @@
             </ul>
         </div>
         @endif
-        <div class="row">
-            <div class="col">
-                <p class="border-bottom border-white border-1 text-center d-flex justify-content-center flex-column p-5 title-fill-details">Fill Out The Details</p>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">TICKET NUMBER:</div>
+            </div>
+            <div class="row">
+                <div class="col">{{ $feedback }}</div>
             </div>
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="border-bottom border-white border-1 text-center d-flex justify-content-center flex-column align-items-center p-5 title-fill-details">Fill Out The Details</p>
+                </div>
+            </div>
+        </div>
+
 
         <form class="d-grid gap-3" action="{{ route('add-feedback') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -93,11 +105,34 @@
                     </div>
                 </div>
             </div>
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 fw-bold d-flex flex-column align-items-center">Level/Year</p>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" class="form-control details" value="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 fw-bold d-flex flex-column align-items-center" >Section</p>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" class="form-control details" value="">
+                    </div>
+                </div>
+            </div>
 
             <div class="container">
                 <div class="row d-flex justify-content-center text-center">
                     <div class="col-4">
-                        <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Message</p>
+                        <p class="mt-1 mb-0 d-flex flex-column fw-bold align-items-center">Message</p>
                     </div>
                     <div class="col-8 text-center">
                         <div class="form-group">

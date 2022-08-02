@@ -10,37 +10,48 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    @yield('stylesheet')
-    
-    
-    <style>
 
+
+
+    <style>
         body {
             background-color: #08519C;
             font-family: 'Calibri';
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin: 0;
         }
+
         .title-main {
             font-size: 4rem;
             color: #ffc800;
             font-weight: bold;
         }
+
         .details {
-        font-size: 2.5rem;
-        color: black;
+            font-size: 2.5rem;
+            color: black;
         }
+
         .title-faq {
             font-size: 4rem;
             color: lightgreen;
         }
+
+        .title-fill-details {
+            font-size: 4rem;
+            font-weight: bold;
+            color: lightgreen;
+        }
+
         @media only screen and (max-width:600px) {
             body {
                 font-size: 1.25rem;
             }
+
             .details {
                 font-size: 1.5rem;
             }
+
             .title-main {
                 font-size: 3rem;
             }
@@ -48,15 +59,21 @@
             .title-faq {
                 font-size: 2.5rem;
             }
+
+            .title-fill-details {
+                font-size: 3rem;
+            }
         }
 
         @media only screen and (min-width:601px) and (max-width:767px) {
             body {
                 font-size: 1.5rem;
             }
+
             .details {
                 font-size: 2rem;
             }
+
             .title-main {
                 font-size: 4rem;
             }
@@ -64,12 +81,14 @@
             .title-faq {
                 font-size: 3rem;
             }
+
+            .title-fill-details {
+                font-size: 4rem;
+            }
         }
-       
-        
     </style>
-    
-    
+
+    @yield('stylesheet')
     <title>DISAT</title>
 </head>
 
