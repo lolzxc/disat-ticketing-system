@@ -1,5 +1,48 @@
 @extends('layouts.app')
 
+@section('stylesheet')
+<style>
+    .data tr:hover {
+        cursor: pointer;
+        background-color: #ccc;
+    }
+
+    table.data {
+        border-collapse: collapse;
+    }
+    .data th:hover {
+        cursor: default;
+    }
+    .data tr {
+        background-color: #eee;
+        border-top: 1px solid #fff;
+    }
+
+    .data tr:hover {
+        background-color: #ccc;
+    }
+
+    .data th {
+        background-color: #08519C;
+    }
+
+    .data th,
+    .data td {
+        padding: 3px 5px;
+    }
+
+    .data td:hover {
+        cursor: pointer;
+    }
+
+    .data td{
+        color: black;
+        font-weight: bold;
+    }
+</style>
+
+@endsection
+
 
 @section('content')
 
@@ -26,28 +69,48 @@
 
 <div class="content text-white d-flex flex-grow-1 flex-column h-100">
     <div class="container">
-        <div class="header d-flex justify-content-center align-items-center pt-5 border-bottom border-white">
+        <div class="header d-flex justify-content-center align-items-center pt-5">
             <span class="title mb-1 text-center title-main">Feedbacks Issued</span>
         </div>
     </div>
 
-    <div class="list-group">
-        <div class="container mt-1">
+    <div class="container-fluid d-flex justify-content-center text-center">
+        <table class="data w-100">
+            <tr class="">
+                <th>Ticket Number</th>
+                <th>School Name</th>
+                <th>Nature of TS</th>
+                <th>Date of Creation</th>
+                <th>Status </th>
+            </tr>
+            @foreach($sample as $feedback)
+            <tr class="border">
+                <td><a href="{{ route('view-feedback', [$feedback->user_id, $feedback->id]) }}"></a>{{$feedback->id}}</td>
+                <td>{{$feedback->school}}</td>
+                <td>{{$feedback->system}}</td>
+                <td>{{$feedback->created_at}}</td>
+                <td>{{$feedback->status}}</td>
+            </tr>
 
-            @foreach ($sample as $filtered_feedback)
-            <a href="{{ route('view-feedback', [$filtered_feedback->user_id, $filtered_feedback->id]) }}" class="list-group-item list-group-item-action" aria-current="true">
-                <small class="text-end fw-bolder">{{ $filtered_feedback->created_at }}</small>
-                <h4 class="my-1">{{ $filtered_feedback->message }}</h5>
-                <small class="border rounded-pill mt-1 p-1 border-primary d-inline-block">{{ $filtered_feedback->system }}</small>
-                <small class="border rounded-pill mt-1 p-1 border-primary d-inline-block">{{ $filtered_feedback->module }}</small>
-                <br>
-                <small class="fw-bolder">Feedback by: {{ $filtered_feedback->name }}</small>
-                <br>
-                <small class="border rounded-pill mt-1 p-1 text-center d-inline-block text-white fs-5 fw-bold" style="background-color: brown">{{ $filtered_feedback->status }}</small>
-            </a>
             @endforeach
-        </div>
+        </table>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('.data tr').click(function() {
+            var href = $(this).find("a").attr("href");
+            if (href) {
+                window.location = href;
+            }
+        });
+
+    });
+    // $(".data tr").click(function() {
+    //     window.location = "google.com";
+    // });
+</script>
+
 
 @endsection
