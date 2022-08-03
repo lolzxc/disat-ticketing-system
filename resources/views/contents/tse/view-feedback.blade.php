@@ -53,6 +53,30 @@
         <div class="container">
             <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-4">
+                    <p class="mt-1 mb-0 d-flex flex-column align-items-center text-center fw-bold">Date</p>
+                </div>
+
+                <div class="col-8">
+                    <input type="text" class="form-control details" value="{{ date('F j Y', strtotime($feedback->created_at)) }}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-4">
+                    <p class="mt-1 mb-0 d-flex flex-column align-items-center text-center fw-bold">Time</p>
+                </div>
+
+                <div class="col-8">
+                    <input type="text" class="form-control details" value="{{ date('h:i a', strtotime($feedback->created_at)) }}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-4">
                     <p class="mt-1 mb-0 d-flex flex-column align-items-center text-center fw-bold">Ticket Number</p>
                 </div>
 
@@ -103,7 +127,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <p class="border-bottom border-white border-1 text-center p-5 d-flex flex-column align-items-center title-main ">Triage Details</p>
+                    <p class="border-bottom border-white border-1 text-center p-5 d-flex flex-column align-items-center title-main" style="color:yellow">Triage Details</p>
                 </div>
             </div>
         </div>
@@ -154,7 +178,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <p class="border-bottom border-white border-1 text-center p-5 d-flex flex-column align-items-center title-main ">Tech Support Form</p>
+                    <p class="border-bottom border-white border-1 text-center p-5 d-flex flex-column align-items-center title-create-triage ">Tech Support Form</p>
                 </div>
             </div>
         </div>

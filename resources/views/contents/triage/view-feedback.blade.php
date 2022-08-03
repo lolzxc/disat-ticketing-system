@@ -143,18 +143,20 @@
                 </div>
             </div>
         </div>
+        @if($triage->screenshot)
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                <div class="col-4">
+                    <p class="text-end mt-1 mb-0">Screen Shot</p>
+                </div>
+                <div class="col-8">
+                    <img src="{{ asset('images/'.$triage->screen_shot) }}">
 
-        @if( $triage->screen_shot )
-        <div class="row d-flex align-items-center">
-            <div class="col-4">
-                <p class="text-end mt-1 mb-0">Screen Shot</p>
-            </div>
-            <div class="col-8">
-                <img src="{{ asset('images/'.$triage->screen_shot) }}">
-
+                </div>
             </div>
         </div>
         @endif
+
         <div class="container">
             <div class="row mb-2 d-flex justify-content-center align-items-center">
                 <div class="col-4">

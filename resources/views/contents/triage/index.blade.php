@@ -39,12 +39,15 @@
 
             @foreach ($filtered_feedbacks as $filtered_feedback)
             <a href="{{ route('view-feedback', [$filtered_feedback->user_id, $filtered_feedback->id]) }}" class="list-group-item list-group-item-action" aria-current="true">
-                <small class="text-end fw-bolder">{{ $filtered_feedback->updated_at->format('F j Y, g:i a') }}</small>
-                <h4 class="my-1">{{ $filtered_feedback->message }}</h5>
+                 <div class="header d-flex flex-column justify-content-center align-items-start text-center">
+                    <small>{{ date('F j Y', strtotime($filtered_feedback->updated_at)) }}</small>
+                    <small>Ticket Number: {{ $filtered_feedback->id }}</small>
+                </div>
+                <h2 class="my-1 fw-bold">{{ $filtered_feedback->message }}</h2>
                 <small class="border rounded-pill mt-1 p-1 border-primary d-inline-block">{{ $filtered_feedback->system }}</small>
                 <small class="border rounded-pill mt-1 p-1 border-primary d-inline-block">{{ $filtered_feedback->module }}</small>
                 <br>
-                <small class="border rounded-pill mt-1 p-1 text-center d-inline-block text-white fs-5 fw-bold" style="background-color: brown">{{ $filtered_feedback->status }}</small>
+                <small class="border rounded-pill mt-1 p-1 text-center d-inline-block text-white fw-bold" style="background-color: brown">{{ $filtered_feedback->status }}</small>
             </a>
             @endforeach
         </div>
