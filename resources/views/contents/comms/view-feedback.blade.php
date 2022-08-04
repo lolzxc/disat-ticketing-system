@@ -73,6 +73,18 @@
             <div class="container">
                 <div class="row d-flex justify-content-center align-items-center text-center">
                     <div class="col-4">
+                        <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Feedback Resolved</p>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" class="form-control details" value="{{ $feedback->updated_at->format('F j Y, g:i a') }}" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-4">
                         <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">School Contact Person</p>
                     </div>
 
@@ -117,43 +129,29 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="container">
-            <form action="{{ route('update-feedback') }}" method="post">
-                @csrf
-                <input type="hidden" name="id" value="{{ $feedback->id }}">
-                <div class="row d-flex justify-content-center align-items-center text-center">
+                <div class="row mb-2 d-flex justify-content-center  text-center">
                     <div class="col-4">
-                        <p class="mb-0 fw-bold">Status</p>
+                        <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Feedback</p>
                     </div>
                     <div class="col-8">
                         <div class="form-group">
-                            <select class="form-control details" name="status" id="exampleFormControlSelect1">
-                                <option selected>PENDING</option>
-                                <option value="#">IN PROGRESS</option>
-                                <option value="#">{{ $feedback->status }}</option>
-                                <option value="CONFIRMED OK">CONFIRMED OK</option>
-
-                            </select>
+                            <textarea type="text" class="form-control details" readonly rows="5">{{ $feedback->message }}</textarea>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row mt-3 pb-2 mb-2">
-                    <div class="col text-center flex-grow-1 align-item-end">
-                        <input class="btn btn-light w-100 btn-lg text-center text-primary fw-bold details" type="submit" value="Submit" id="submit_button"></button>
-                    </div>
-
-                </div>
-            </form>
-        </div>
         </div>
     </div>
-    @if($tse != null)
+    @if($triage != null)
     <div class="container">
         <div class="container justify-content-center align-items-center text-center">
             <div class="row ">
                 <div class="col title-faq">
-                    <p class="border-bottom border-white border-1 text-center p-5 d-flex flex-column align-items-center fw-bold">FAQ's Basic / Troubleshooting Guide</p>
+                    <p class="border-bottom border-white border-1 text-center p-5 d-flex flex-column align-items-center fw-bold">Triage Details</p>
                 </div>
             </div>
         </div>
@@ -161,21 +159,99 @@
         <div class="container">
             <div class="row mb-2 d-flex justify-content-center  text-center">
                 <div class="col-4">
-                    <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Actions Done</p>
+                    <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Assessment</p>
                 </div>
                 <div class="col-8">
                     <div class="form-group">
-                        <textarea type="text" class="form-control details" readonly rows="5">{{ $tse->actions_done }}</textarea>
+                        <textarea type="text" class="form-control details" readonly rows="5">{{ $triage->assessment }}</textarea>
                     </div>
                 </div>
             </div>
         </div>
 
-        
-    </div>
+        <div class="container">
+            <div class="row mb-2 d-flex justify-content-center  text-center">
+                <div class="col-4">
+                    <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Solution</p>
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <textarea type="text" class="form-control details" readonly rows="5">{{ $triage->solution }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if($tse != null)
+        <div class="container">
+            <div class="container justify-content-center align-items-center text-center">
+                <div class="row ">
+                    <div class="col title-faq">
+                        <p class="border-bottom border-white border-1 text-center p-5 d-flex flex-column align-items-center fw-bold">FAQ's Basic / Troubleshooting Guide</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row mb-2 d-flex justify-content-center  text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Actions Done</p>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <textarea type="text" class="form-control details" readonly rows="5">{{ $tse->actions_done }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row mb-2 d-flex justify-content-center  text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 d-flex flex-column align-items-center fw-bold">Remarks</p>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <textarea type="text" class="form-control details" readonly rows="5">{{ $tse->remarks }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <form action="{{ route('update-feedback') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $feedback->id }}">
+                    <div class="row d-flex justify-content-center align-items-center text-center">
+                        <div class="col-4">
+                            <p class="mb-0 fw-bold">Status</p>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <select class="form-control details" name="status" id="exampleFormControlSelect1">
+                                    <option value="#">{{ $feedback->status }}</option>
+                                    <option value="#">PENDING</option>
+                                    <option value="#">IN PROGRESS</option>
+
+                                    <option value="CONFIRMED OK">CONFIRMED OK</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 pb-2 mb-2">
+                        <div class="col text-center flex-grow-1 align-item-end">
+                            <input class="btn btn-light w-100 btn-lg text-center text-primary fw-bold details" type="submit" value="Submit" id="submit_button"></button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
 
 
-    @endif
+        @endif
 
 
-    @endsection
+        @endsection

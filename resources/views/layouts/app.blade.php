@@ -54,6 +54,46 @@
             color: lightgreen;
         }
 
+        .data tr:hover {
+            cursor: pointer;
+            background-color: #ccc;
+        }
+
+        table.data {
+            border-collapse: collapse;
+        }
+
+        .data th:hover {
+            cursor: default;
+        }
+
+        .data tr {
+            background-color: #eee;
+            border-top: 1px solid #fff;
+        }
+
+        .data tr:hover {
+            background-color: #ccc;
+        }
+
+        .data th {
+            background-color: #08519C;
+        }
+
+        .data th,
+        .data td {
+            padding: 3px 5px;
+        }
+
+        .data td:hover {
+            cursor: pointer;
+        }
+
+        .data td {
+            color: black;
+            font-weight: bold;
+        }
+
         @media only screen and (max-width:600px) {
             body {
                 font-size: 1.25rem;
@@ -120,7 +160,17 @@
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    
+    <script>
+    $(document).ready(function() {
+        $('.data tr').click(function() {
+            var href = $(this).find("a").attr("href");
+            if (href) {
+                window.location = href;
+            }
+        });
+
+    });
+</script>
 </body>
 
 </html>

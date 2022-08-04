@@ -2,43 +2,7 @@
 
 @section('stylesheet')
 <style>
-    .data tr:hover {
-        cursor: pointer;
-        background-color: #ccc;
-    }
-
-    table.data {
-        border-collapse: collapse;
-    }
-    .data th:hover {
-        cursor: default;
-    }
-    .data tr {
-        background-color: #eee;
-        border-top: 1px solid #fff;
-    }
-
-    .data tr:hover {
-        background-color: #ccc;
-    }
-
-    .data th {
-        background-color: #08519C;
-    }
-
-    .data th,
-    .data td {
-        padding: 3px 5px;
-    }
-
-    .data td:hover {
-        cursor: pointer;
-    }
-
-    .data td{
-        color: black;
-        font-weight: bold;
-    }
+    
 </style>
 
 @endsection
@@ -54,9 +18,9 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex mx-auto" role="search">
-                <input class="form-control form-control-lg me-2" type="search" placeholder="Search by ID" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+            <form class="d-flex mx-auto" role="search" action="{{ route('search') }}" method="GET">
+                <input class="form-control form-control-lg me-2" type="search" placeholder="Search by ID" aria-label="Search" name="id">
+                <input class="btn btn-outline-success" type="submit"></button>
             </form>
             <div class="fs-5">
                 Hello, <span class="text-primary">{{ $user -> name }}!</span> <br>
@@ -88,7 +52,7 @@
                 <td><a href="{{ route('view-feedback', [$feedback->user_id, $feedback->id]) }}"></a>{{$feedback->id}}</td>
                 <td>{{$feedback->school}}</td>
                 <td>{{$feedback->system}}</td>
-                <td>{{$feedback->created_at}}</td>
+                <td>{{date('F j Y', strtotime($feedback->created_at))}}</td>
                 <td>{{$feedback->status}}</td>
             </tr>
 
@@ -97,20 +61,7 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        $('.data tr').click(function() {
-            var href = $(this).find("a").attr("href");
-            if (href) {
-                window.location = href;
-            }
-        });
 
-    });
-    // $(".data tr").click(function() {
-    //     window.location = "google.com";
-    // });
-</script>
 
 
 @endsection

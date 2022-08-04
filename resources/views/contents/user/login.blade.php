@@ -7,11 +7,7 @@
         height: 100%;
         color: white;
     }
-
-    #screen {
-        background-color: #00A1FC;
-    }
-
+    
     a {
         color: white;
     }
@@ -40,8 +36,8 @@
                 
                 <div class="d-flex flex-column justify-content-center align-items-center py-3 px-2">
                 
-                <h2 class="text-center fs-1">Login to your Account</h2>
-                <form action="{{ route('login') }}" method="POST" class="d-flex flex-column justify-content-center align-items-center w-75">
+                <h2 class="text-center">Login to your Account</h2>
+                <form action="{{ route('login') }}" method="POST" class="d-flex flex-column justify-content-center align-items-center">
                     @csrf
                     <div class="input-group mb-3 mx-auto">
                         <span class="input-group-text bg-light"><i class="fa-solid fa-user"></i></span>
@@ -51,7 +47,7 @@
                         <span class="input-group-text bg-light"><i class="fa-solid fa-lock"></i></span>
                         <input type="password" name="password" class="form-control" placeholder="Password"><br>
                     </div>
-                    <a href="#">Forgot your password?</a><br>
+                    <a href="#" class="text-center">Forgot your password?</a><br>
                     <input type="submit" value="Submit" class="btn btn-light"></input>
                 </form>
                 </div>

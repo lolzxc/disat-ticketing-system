@@ -14,9 +14,9 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex mx-auto" role="search">
-                <input class="form-control form-control-lg me-2" type="search" placeholder="Search by ID" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+            <form class="d-flex mx-auto" role="search" action="{{ route('search') }}" method="GET">
+                <input class="form-control form-control-lg me-2" type="search" placeholder="Search by ID" aria-label="Search" name="id">
+                <input class="btn btn-outline-success" type="submit"></button>
             </form>
             <div class="fs-5">
                 Hello, <span class="text-primary">{{ $user -> name }}!</span> <br>
@@ -39,7 +39,7 @@
 
             @foreach ($filtered_feedbacks as $filtered_feedback)
             <a href="{{ route('view-feedback', [$filtered_feedback->user_id, $filtered_feedback->id]) }}" class="list-group-item list-group-item-action" aria-current="true">
-                 <div class="header d-flex flex-column justify-content-center align-items-start text-center">
+                <div class="header d-flex flex-column justify-content-center align-items-start text-center">
                     <small>{{ date('F j Y', strtotime($filtered_feedback->updated_at)) }}</small>
                     <small>Ticket Number: {{ $filtered_feedback->id }}</small>
                 </div>

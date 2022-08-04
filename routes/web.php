@@ -36,6 +36,7 @@ Route::controller(FeedbackController::class)->group(function () {
     Route::post('/update-feedback', 'update_feedback')->name('update-feedback');
 
     Route::get('/list/{id}', 'feedback_list')->name('feedback-list');
+    Route::get('/search', 'search')->name('search');
     
 });
 
