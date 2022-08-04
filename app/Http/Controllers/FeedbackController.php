@@ -9,6 +9,7 @@ use App\Models\Triage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;
 
 class FeedbackController extends Controller
 {
@@ -147,9 +148,134 @@ class FeedbackController extends Controller
             ->select('feedback.*', 'users.school')
             ->first();
 
-        if(!$feedback) {
+        if (!$feedback) {
             return 'No Feedback Found';
         }
         return view('contents.search.search', compact('user', 'feedback'));
+    }
+
+    public function generate_pdf($id)
+    {
+
+
+        $feedback = DB::table('feedback')
+            ->where('feedback.id', '=', $id)
+            ->join('users', 'users.id', '=', 'feedback.user_id')
+            ->join('triages', 'triages.feedback_id', '=', 'feedback.id')
+            ->join('tech_supports', 'tech_supports.feedback_id', '=', 'feedback.id')
+            ->orderBy('feedback.id', 'desc')
+            ->select('feedback.*', 'users.school', 'users.name', 'tech_supports.actions_done', 'tech_supports.remarks', 'triages.assessment', 'triages.solution')
+            ->first();
+
+        $feedback_created = date('F j Y, g:i a', strtotime($feedback->created_at));
+        $feedback_resolved = date('F j Y, g:i a', strtotime($feedback->updated_at));
+        $output = "
+        <style>
+            body {
+                text-align: center;
+            }
+            .header {
+                font-weight: bold;
+                font-size: 32px;
+                text-decoration: underline;
+            }
+        
+            .label {
+                font-weight: bold;
+                font-size: 24px;
+            }
+
+            .details {
+                font-size:24px;
+                text-decoration: underline;
+            }
+            
+            .data {
+                margin: 25px 0px;
+            }
+        </style>
+
+
+        <div class='header'>Feedback Details</div>
+        <div class='data'>
+            <table>
+                <tr>
+                    <td><span class='label'>Ticket Number: </span><span class='details'>$feedback->id</span></td>
+                </tr>
+                <tr>
+                    <td><span class='label'>Feedback Created: </span><span class='details'>$feedback_created</span></span> </td>
+                </tr>
+                <tr>    
+                    <td><span class='label'>Feedback Resolved: </span> <span class='details'>$feedback_resolved</span> </td>
+                </tr>
+                <tr>    
+                    <td><span class='label'>School Contact Person: </span> <span class='details'>$feedback->name</span></td>
+                </tr>
+                <tr>
+                    <td><span class='label'>School: </span> <span class='details'>$feedback->school</span></td>
+                </tr>
+                <tr>    
+                    <td><span class='label'>Level / Year: </span></td>
+                </tr>
+                <tr>
+                    <td><span class='label'>Section: </span></td>
+                </tr>
+                <tr>
+                    <td><span class='label'>Feedback: </span> <span class='details'>$feedback->message</span></td>
+                </tr>
+               
+            </table>
+        </div>
+        <div class='header'>Triage Details</div>
+        <div class='data'>
+            <table>
+                <tr>
+                    <td><span class='label'>Assessment: </span><span class='details'>$feedback->assessment</span></td>
+                </tr>
+                <tr>
+                    <td><span class='label'>Solution: </span><span class='details'>$feedback->solution</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class='header'>Troubleshooting Guide</div>
+        <div class='data'>
+            <table>
+                <tr>
+                    <td><span class='label'>Actions Done: </span><span class='details'>$feedback->actions_done</span></td>
+                </tr>
+                <tr>
+                    <td><span class='label'>Remarks: </span><span class='details'>$feedback->remarks</span></span> </td>
+                </tr>
+            </table>
+        </div>
+        
+        ";
+
+        $test = "
+            <table>
+                
+
+                <tr>
+                    <td>Sample</tr>
+                </tr>
+            </table>
+
+        ";
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($output);
+
+
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('legal', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        return $dompdf->stream();
     }
 }

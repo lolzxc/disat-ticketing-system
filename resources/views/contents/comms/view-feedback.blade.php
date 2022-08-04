@@ -239,13 +239,22 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3 pb-2 mb-2">
+                    <div class="row mt-3 pb-2 mb-1">
                         <div class="col text-center flex-grow-1 align-item-end">
                             <input class="btn btn-light w-100 btn-lg text-center text-primary fw-bold details" type="submit" value="Submit" id="submit_button"></button>
                         </div>
 
                     </div>
                 </form>
+            </div>
+
+            <div class="container mb-2">
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-primary w-100 details text-light" href=" {{ route('generate-pdf', [$feedback->id]) }}" role="button">Download PDF</a>
+
+                    </div>
+                </div>
             </div>
 
         </div>
