@@ -21,27 +21,15 @@ class FeedbackController extends Controller
         if (Session::has('loginId') && $user->role == 'client') {
             $feedback = Feedback::latest('id')->first();
             $feedback = $feedback->id + 1;
-
             return view('contents.' . $user->role . '.index', compact('user',  'feedback'))->with('success', false);
         }
 
         if (Session::has('loginId') && $user->role == 'tse') {
 
-            $triages = Triage::where('assigned_to', '=', $user->name)->get();
-            $feedback_container = array();
-            $feedbacks = Feedback::all();
-            foreach ($triages as $triage) {
-                $feedbacks = Feedback::where('id', '=', $triage->feedback_id)->get();
-                if (!$feedbacks->isEmpty()) {
-                    array_push($feedback_container, $feedbacks);
-                }
-            }
-
-            foreach ($feedback_container as $feedback) {
-                if ($feedback[0]['status'] != 'DONE') {
-                    array_push($filtered_feedbacks, $feedback);
-                }
-            }
+            $filtered_feedbacks = DB::table('feedback')
+                ->join('triages', 'feedback.id', '=', 'triages.feedback_id')
+                ->select('feedback.*')
+                ->get();
 
             return view('contents.' . $user->role . '.index', compact('user'))->with('filtered_feedbacks', $filtered_feedbacks);
         }
@@ -61,28 +49,22 @@ class FeedbackController extends Controller
 
         if (Session::has('loginId') && $user->role == 'comms') {
             $sample = array();
-
-            $filtered_feedbacks = DB::table('feedback')
-                ->join('triages', 'feedback.id', '=', 'triages.feedback_id')
-                ->join('tech_supports', 'feedback.id', '=', 'tech_supports.feedback_id')
-                ->join('users', 'feedback.user_id', '=', 'users.id')
-                ->select('feedback.*', 'users.name')
+            $feedback = DB::table('feedback')
+                ->join('users', 'users.id', '=', 'feedback.user_id')
+                ->orderBy('feedback.id', 'desc')
+                ->select('feedback.*', 'users.school')
                 ->get();
 
-            $triage = DB::Table('users')
-                ->join('triages', 'users.id', '=', 'triages.triage_engr_id')
-                ->select('users.name')
-                ->first();
 
-
-            if ($filtered_feedbacks) {
-                foreach ($filtered_feedbacks as $filtered_feedback) {
-
-                    array_push($sample, $filtered_feedback);
-                }
+            foreach ($feedback as $item) {
+                // if($item->status != 'DONE') {
+                //     array_push($sample, $item);
+                // }
+                array_push($sample, $item);
             }
+
+
             return view('contents.' . $user->role . '.index', compact('user', 'sample'));
-            // return view('contents.' . $user->role . '.index', compact('user', 'contains_triage', 'contains_tse', 'contains_user'))->with('filtered_feedbacks', $filtered_feedbacks);
         }
     }
 
@@ -122,9 +104,7 @@ class FeedbackController extends Controller
                 'message' => $request->message,
             ]);
         }
-
-        return redirect('/index')->with('success',true);
-        // return view('contents.' . $user->role . '.index', compact('user', 'feedback'))->with('success', true);
+        return redirect('/index')->with('success', true);
     }
 
     public function view_feedback($user_id, $id)
@@ -133,18 +113,14 @@ class FeedbackController extends Controller
         $user = User::where('id', '=', Session::get('loginId'))->first();
         $triage = Triage::where('feedback_id', '=', $feedback->id)->first();
         $owner = User::where('id', '=', $feedback->user_id)->first();
-        $tse = TechSupport::where('feedback_id', '=', $feedback->id)->first();
+        $tse = TechSupport::where('feedback_id', '=', $id)->first();
 
         if (Session::has('loginId') && $user->role == 'triage') {
             $tses = User::where('role', '=', 'tse')->get();
             return view('contents.' . $user->role . '.view-feedback', compact('user', 'feedback', 'triage', 'owner', 'tses'));
         }
 
-
         return view('contents.' . $user->role . '.view-feedback', compact('user', 'feedback', 'triage', 'owner', 'tse'));
-
-
-        // return view('contents.' . $user->role . '.view-feedback', compact('user', 'feedback', 'triage', 'owner'));
     }
 
     public function update_feedback(Request $request)
@@ -159,5 +135,21 @@ class FeedbackController extends Controller
         $user = User::where('id', '=', $id)->first();
         $feedbacks = Feedback::where('user_id', '=', $user->id)->orderBy('updated_at', 'desc')->get();
         return view('contents.' . $user->role . '.view-feedback-list', compact('user'))->with('feedbacks', $feedbacks);
+    }
+
+    public function search(Request $request)
+    {
+        $user = User::where('id', '=', Session::get('loginId'))->first();
+        $feedback = DB::table('feedback')
+            ->where('feedback.id', '=', $request->id)
+            ->join('users', 'users.id', '=', 'feedback.user_id')
+            ->orderBy('feedback.id', 'desc')
+            ->select('feedback.*', 'users.school')
+            ->first();
+
+        if(!$feedback) {
+            return 'No Feedback Found';
+        }
+        return view('contents.search.search', compact('user', 'feedback'));
     }
 }
