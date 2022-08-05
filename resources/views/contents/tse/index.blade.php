@@ -55,6 +55,10 @@
 
         </div>
     </div>
+
+    <div style="display: flex; margin-top: 20px; justify-content:center">
+        {{ $filtered_feedbacks->links() }}
+    </div>
 </div>
 
 @endsection

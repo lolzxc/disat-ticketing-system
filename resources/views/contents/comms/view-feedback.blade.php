@@ -144,36 +144,28 @@
                 </div>
             </div>
 
-            @if(!$triage)
-            <div class="container">
-                <form action="{{ route('update-feedback') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $feedback->id }}">
-                    <div class="row d-flex justify-content-center align-items-center text-center">
-                        <div class="col-4">
-                            <p class="mb-0 fw-bold">Status</p>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <select class="form-control details" name="status" id="exampleFormControlSelect1">
-                                    <option value="OPEN">OPEN<option>
-                                    <option value="PENDING">PENDING</option>
-                                    <option value="IN PROGRESS">IN PROGRESS</option>
-                                    <option value="CONFIRMED OK">CONFIRMED OK</option>
-                                </select>
-                            </div>
+            <div class="container mb-2">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-4">
+                        <p class="mb-0 fw-bold">Status</p>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            @if($feedback->status == 'open' || $feedback->status == 'OPEN')
+                            <input type="text" class="form-control details" value="{{ $feedback->status }}" readonly style="background-color:blue; color:white;">
+                            
+                            @elseif($feedback->status == 'CONFIRMED OK' || $feedback->status == 'DONE')
+                            <input type="text" class="form-control details" value="{{ $feedback->status }}" readonly style="background-color:green; color:white;">
+                            @elseif($feedback->status == 'IN PROGRESS')
+                            <input type="text" class="form-control details" value="{{ $feedback->status }}" readonly style="background-color:yellow;">
+                            @elseif($feedback->status == 'PENDING')
+                            <input type="text" class="form-control details" value="{{ $feedback->status }}" readonly style="background-color:red; color:white">
+                            @endif
+
                         </div>
                     </div>
-
-                    <div class="row mt-3 pb-2 mb-1">
-                        <div class="col text-center flex-grow-1 align-item-end">
-                            <input class="btn btn-light w-100 btn-lg text-center text-primary fw-bold details" type="submit" value="Submit" id="submit_button"></button>
-                        </div>
-
-                    </div>
-                </form>
+                </div>
             </div>
-            @endif
 
         </div>
     </div>
@@ -259,7 +251,8 @@
                         <div class="col-8">
                             <div class="form-group">
                                 <select class="form-control details" name="status" id="exampleFormControlSelect1">
-                                    <option value="OPEN">OPEN<option>
+                                    <option value="OPEN">OPEN
+                                    <option>
                                     <option value="PENDING">PENDING</option>
                                     <option value="IN PROGRESS">IN PROGRESS</option>
                                     <option value="CONFIRMED OK">CONFIRMED OK</option>

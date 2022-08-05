@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
+use Illuminate\Pagination\Paginator;
 
 class FeedbackController extends Controller
 {
@@ -18,6 +19,7 @@ class FeedbackController extends Controller
         $user = array();
         $filtered_feedbacks = array();
         $user = User::where('id', '=', Session::get('loginId'))->first();
+        Paginator::useBootstrap();
 
         if (Session::has('loginId') && $user->role == 'client') {
             $feedback = Feedback::latest('id')->first();
@@ -34,34 +36,37 @@ class FeedbackController extends Controller
             $filtered_feedbacks = DB::table('feedback')
                 ->join('triages', 'feedback.id', '=', 'triages.feedback_id')
                 ->select('feedback.*')
-                ->get();
+                ->paginate(6);
 
             return view('contents.' . $user->role . '.index', compact('user'))->with('filtered_feedbacks', $filtered_feedbacks);
         }
 
         if (Session::has('loginId') && $user->role == 'triage') {
 
-            $feedbacks = Feedback::all();
+            $feedbacks = Feedback::paginate(5);
             foreach ($feedbacks as $feedback) {
+                if($feedback->status == 'IN PROGRESS') {
+                    break;
+                }
                 $triage = Triage::where('feedback_id', '=', $feedback->id)->get('id');
                 if ($triage->isEmpty()) {
                     $feedback = Feedback::where('id', '=', $feedback->id)->first();
                     array_push($filtered_feedbacks, $feedback);
                 }
             }
-            return view('contents.' . $user->role . '.index', compact('user'))->with('filtered_feedbacks', $filtered_feedbacks);
+            return view('contents.' . $user->role . '.index', compact('user', 'feedbacks'))->with('filtered_feedbacks', $filtered_feedbacks);
         }
 
         if (Session::has('loginId') && $user->role == 'comms') {
             $sample = array();
-            $feedback = DB::table('feedback')
+            $feedbacks = DB::table('feedback')
                 ->join('users', 'users.id', '=', 'feedback.user_id')
                 ->orderBy('feedback.id', 'desc')
                 ->select('feedback.*', 'users.school')
-                ->get();
+                ->paginate(9);
 
 
-            foreach ($feedback as $item) {
+            foreach ($feedbacks as $item) {
                 // if($item->status != 'DONE') {
                 //     array_push($sample, $item);
                 // }
@@ -69,7 +74,7 @@ class FeedbackController extends Controller
             }
 
 
-            return view('contents.' . $user->role . '.index', compact('user', 'sample'));
+            return view('contents.' . $user->role . '.index', compact('user', 'sample', 'feedbacks'));
         }
     }
 
