@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="col-8">
-                        <input type="text" class="form-control details" value="" readonly>
+                        <input type="text" class="form-control details" value="{{ $feedback->level_year }}" readonly>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
                     </div>
 
                     <div class="col-8">
-                        <input type="text" class="form-control details" value="" readonly>
+                        <input type="text" class="form-control details" value="{{ $feedback->section }}" readonly>
                     </div>
                 </div>
             </div>
@@ -143,6 +143,37 @@
                     </div>
                 </div>
             </div>
+
+            @if(!$triage)
+            <div class="container">
+                <form action="{{ route('update-feedback') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $feedback->id }}">
+                    <div class="row d-flex justify-content-center align-items-center text-center">
+                        <div class="col-4">
+                            <p class="mb-0 fw-bold">Status</p>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <select class="form-control details" name="status" id="exampleFormControlSelect1">
+                                    <option value="OPEN">OPEN<option>
+                                    <option value="PENDING">PENDING</option>
+                                    <option value="IN PROGRESS">IN PROGRESS</option>
+                                    <option value="CONFIRMED OK">CONFIRMED OK</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 pb-2 mb-1">
+                        <div class="col text-center flex-grow-1 align-item-end">
+                            <input class="btn btn-light w-100 btn-lg text-center text-primary fw-bold details" type="submit" value="Submit" id="submit_button"></button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            @endif
 
         </div>
     </div>
@@ -228,12 +259,10 @@
                         <div class="col-8">
                             <div class="form-group">
                                 <select class="form-control details" name="status" id="exampleFormControlSelect1">
-                                    <option value="#">{{ $feedback->status }}</option>
-                                    <option value="#">PENDING</option>
-                                    <option value="#">IN PROGRESS</option>
-
+                                    <option value="OPEN">OPEN<option>
+                                    <option value="PENDING">PENDING</option>
+                                    <option value="IN PROGRESS">IN PROGRESS</option>
                                     <option value="CONFIRMED OK">CONFIRMED OK</option>
-
                                 </select>
                             </div>
                         </div>

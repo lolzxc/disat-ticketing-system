@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('system');
             $table->string('module');
+            $table->string('level_year');
+            $table->string('section');
             $table->text('message');
             $table->string('screen_shot')->nullable();
             $table->string('status');

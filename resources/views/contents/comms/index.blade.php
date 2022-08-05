@@ -53,14 +53,21 @@
                 <td>{{$feedback->school}}</td>
                 <td>{{$feedback->system}}</td>
                 <td>{{date('F j Y', strtotime($feedback->created_at))}}</td>
-                <td>{{$feedback->status}}</td>
-            </tr>
+                @if($feedback->status == 'open' || $feedback->status == 'OPEN')
+                    <td id='status' style="background-color:blue; color:white;">{{$feedback->status}}</td>
+                @elseif($feedback->status == 'CONFIRMED OK' || $feedback->status == 'DONE')
+                    <td id='status' style="background-color:green; color:white">{{$feedback->status}}</td>
+                @elseif($feedback->status == 'IN PROGRESS')
+                    <td id='status' style="background-color:yellow;">{{$feedback->status}}</td>
+                @elseif($feedback->status == 'PENDING')
+                    <td id='status' style="background-color:red; color:white">{{$feedback->status}}</td>
+                @endif
 
+            </tr>
             @endforeach
         </table>
     </div>
 </div>
-
 
 
 

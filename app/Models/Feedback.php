@@ -20,7 +20,7 @@ class Feedback extends Model
     ];
 
     protected $attributes = [
-        'status' => 'open'
+        'status' => 'OPEN'
     ];
 
     public function user()

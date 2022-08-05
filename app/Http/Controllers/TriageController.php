@@ -23,7 +23,7 @@ class TriageController extends Controller
             'assigned_to' => $request->assigned_to,
         ]);
 
-        Feedback::where('id', '=', $request->feedback_id)->update(['status' => 'ON PROGRESS']);
+        Feedback::where('id', '=', $request->feedback_id)->update(['status' => 'IN PROGRESS']);
 
         return redirect('index');
     }

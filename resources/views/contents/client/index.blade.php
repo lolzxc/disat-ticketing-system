@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="col-8">
-                        <input type="text" class="form-control details" value="">
+                        <input type="text" class="form-control details" name="level_year">
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@
                     </div>
 
                     <div class="col-8">
-                        <input type="text" class="form-control details" value="">
+                        <input type="text" class="form-control details" name="section">
                     </div>
                 </div>
             </div>

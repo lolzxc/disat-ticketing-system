@@ -168,7 +168,6 @@
                 window.location = href;
             }
         });
-
     });
 </script>
 </body>

@@ -21,7 +21,11 @@ class FeedbackController extends Controller
 
         if (Session::has('loginId') && $user->role == 'client') {
             $feedback = Feedback::latest('id')->first();
-            $feedback = $feedback->id + 1;
+            if($feedback) {
+                $feedback = $feedback->id + 1;
+            }else {
+                $feedback = 1;
+            }
             return view('contents.' . $user->role . '.index', compact('user',  'feedback'))->with('success', false);
         }
 
@@ -81,7 +85,9 @@ class FeedbackController extends Controller
             'system' => 'required',
             'module' => 'required',
             'message' => 'required',
-            'screen_shot' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'screen_shot' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'level_year' => 'required',
+            'section' => 'required'
         ]);
 
         if ($request->screen_shot) {
@@ -93,7 +99,9 @@ class FeedbackController extends Controller
                 'system' => $request->system,
                 'module' => $request->module,
                 'message' => $request->message,
-                'screen_shot' => $screenshotName
+                'screen_shot' => $screenshotName,
+                'level_year' => $request->level_year,
+                'section' => $request->section
             ]);
         }
 
@@ -103,6 +111,8 @@ class FeedbackController extends Controller
                 'system' => $request->system,
                 'module' => $request->module,
                 'message' => $request->message,
+                'level_year' => $request->level_year,
+                'section' => $request->section
             ]);
         }
         return redirect('/index')->with('success', true);
@@ -215,10 +225,10 @@ class FeedbackController extends Controller
                     <td><span class='label'>School: </span> <span class='details'>$feedback->school</span></td>
                 </tr>
                 <tr>    
-                    <td><span class='label'>Level / Year: </span></td>
+                    <td><span class='label'>Level / Year: </span><span class='details'>$feedback->level_year</span></td>
                 </tr>
                 <tr>
-                    <td><span class='label'>Section: </span></td>
+                    <td><span class='label'>Section: </span><span class='details'>$feedback->section</span></td>
                 </tr>
                 <tr>
                     <td><span class='label'>Feedback: </span> <span class='details'>$feedback->message</span></td>

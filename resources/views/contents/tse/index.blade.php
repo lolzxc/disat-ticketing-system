@@ -38,6 +38,7 @@
     <div class="list-group">
         <div class="container mt-1">
             @foreach ($filtered_feedbacks as $filtered_feedback)
+            @if($filtered_feedback->status != 'DONE')
             <a href="{{ route('view-feedback', [$filtered_feedback->user_id, $filtered_feedback->id]) }}" class="list-group-item list-group-item-action" aria-current="true">
                 <div class="header d-flex flex-column justify-content-center align-items-start text-center">
                     <small>{{ date('F j Y', strtotime($filtered_feedback->updated_at)) }}</small>
@@ -49,7 +50,9 @@
                 <br>
                 <small class="border rounded-pill mt-1 p-1 text-center d-inline-block text-white fw-bolder" style="background-color: brown">{{ $filtered_feedback->status }}</small>
             </a>
+            @endif
             @endforeach
+
         </div>
     </div>
 </div>

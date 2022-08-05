@@ -89,6 +89,18 @@
         <div class="container">
             <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-4">
+                    <p class="mt-1 mb-0 d-flex flex-column align-items-center text-center fw-bold">School Contact Person</p>
+                </div>
+
+                <div class="col-8">
+                    <input type="text" class="form-control details" value="{{ $owner->name }}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-4">
                     <p class="mt-1 mb-0 d-flex flex-column align-items-center text-center fw-bold">System</p>
                 </div>
 
@@ -109,6 +121,30 @@
                 </div>
             </div>
         </div>
+
+        <div class="container">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 fw-bold d-flex flex-column align-items-center">Level/Year</p>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" class="form-control details" value="{{ $feedback->level_year }}" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row mb-2 d-flex justify-content-center align-items-center text-center">
+                    <div class="col-4">
+                        <p class="mt-1 mb-0 fw-bold d-flex flex-column align-items-center">Section</p>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" class="form-control details" value="{{ $feedback->section }}" readonly>
+                    </div>
+                </div>
+            </div>
 
         <div class="container">
             <div class="row d-flex justify-content-center ">
