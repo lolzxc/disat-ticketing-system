@@ -8,12 +8,38 @@
         color: white;
     }
 
-    #screen {
-        background-color: #00A1FC;
-    }
-
     a {
         color: white;
+        font-size: 1.5rem;
+    }
+    .login {
+        width: 767px;
+    }
+    @media only screen and (min-width:601px) and (max-width:767px) {
+        .login {
+            width: 600px;
+        }
+    }
+
+    @media only screen and (max-width:600px) {
+        .login {
+            max-width: 450px;
+        }
+    }
+    @media only screen and (max-width:450px) {
+        .login {
+            max-width: 400px;
+        }
+    }
+    @media only screen and (max-width:400px) {
+        .login {
+            max-width: 350px;
+        }
+    }
+    @media only screen and (max-width:350px) {
+        .login {
+            max-width: 300px;
+        }
     }
 </style>
 @endsection
@@ -34,8 +60,8 @@
                     </ul>
                 </div>
                 @endif
-                <h2 class="text-center fs-1">Create an Account!</h2>
-                <form action="{{ route('register') }}" method="POST" class="d-flex flex-column justify-content-center align-items-center">
+                <h1 class="text-center">Create an Account!</h2>
+                <form action="{{ route('register') }}" method="POST" class="d-flex flex-column justify-content-center align-items-center login">
                     @csrf
                     <div class="input-group mb-3 mx-auto">
                         <span class="input-group-text bg-light"><i class="fa-solid fa-user"></i></span>
@@ -67,8 +93,7 @@
                         <span class="input-group-text bg-light"><i class="fa-solid fa-lock"></i></span>
                         <input type="password" name="password" class="form-control" placeholder="Password"><br>
                     </div>
-                    <a href="#">Forgot your password?</a><br>
-                    <input type="submit" value="Submit" class="btn btn-light"></input>
+                    <input type="submit" value="Submit" class="btn btn-success" style="font-size: 1.5rem;"></input>
                 </form>
             </div>
         </div>
