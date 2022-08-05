@@ -49,7 +49,7 @@
                 <small class="border rounded-pill p-1 border-primary d-inline-block">{{ $filtered_feedback->module }}</small>
                 <br>
                 @if($filtered_feedback->status == 'IN PROGRESS')
-                <small class="border rounded-pill mt-1 p-1 text-center d-inline-block text-white fw-bold" style="background-color:yellow;color:black;">{{ $filtered_feedback->status }}</small>
+                <small class="border rounded-pill border-3 mt-1 p-1 text-center d-inline-block  fw-bold" style="background-color:yellow; color:black;">{{ $filtered_feedback->status }}</small>
                 @endif
             </a>
             @endif
