@@ -48,7 +48,9 @@
                 <small class="border rounded-pill p-1 border-primary d-inline-block">{{ $filtered_feedback->system }}</small>
                 <small class="border rounded-pill p-1 border-primary d-inline-block">{{ $filtered_feedback->module }}</small>
                 <br>
-                <small class="border rounded-pill mt-1 p-1 text-center d-inline-block text-white fw-bolder" style="background-color: brown">{{ $filtered_feedback->status }}</small>
+                @if($filtered_feedback->status == 'PENDING')
+                <small class="border rounded-pill mt-1 p-1 text-center d-inline-block text-white fw-bold" style="background-color:red; color:white">{{ $filtered_feedback->status }}</small>
+                @endif
             </a>
             @endif
             @endforeach
