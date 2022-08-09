@@ -257,20 +257,21 @@
                         </div>
                         <div class="col-8">
                             <div class="form-group">
-                                <select class="form-control details" name="status" id="exampleFormControlSelect1">
-                                    <option value="DONE">DONE</option>
-                                    <option value="CONFIRMED OK">CONFIRMED OK</option>
-                                    <option value="ON HOLD">ON HOLD</option>
-                                    <option value="URGENT">URGENT</option>
-                                    <option value="CANCELLED">CANCELLED</option>
-                                    <option value="ON QUE">ON QUE</option>
-                                    <option value="IN PROGRESS">IN PROGRESS</option>
-                                    <option value="FOR CONFIRMATION">FOR CONFIRMATION</option>
-                                    <option value="FOR UPDATE">FOR UPDATE</option>
-                                    <option value="FOR DEV">FOR DEV</option>
-                                    <option value="RESCHED ON">RESCHED ON</option>
-                                    <option value="ATS">ATS</option>
-                                    <option value="FOR DEPLOYMENT">FOR DEPLOYMENT</option>
+                                <select class="form-control details" name="status" id="exampleFormControlSelect1" style="background-color: green; color:white;" onchange="display()">
+                                    <option value="DONE" style="background-color: green;">DONE</option>
+                                    <option value="CONFIRMED OK" style="background-color: green;">CONFIRMED OK</option>
+                                    <option value="OPEN" style="background-color: purple;">OPEN</option>
+                                    <option value="ON HOLD" style="background-color: teal;">ON HOLD</option>
+                                    <option value="URGENT" style="background-color: red;">URGENT</option>
+                                    <option value="CANCELLED" style="background-color: black;">CANCELLED</option>
+                                    <option value="ON QUE" style="background-color: yellow; color:black;">ON QUE</option>
+                                    <option value="IN PROGRESS" style="background-color: blue;">IN PROGRESS</option>
+                                    <option value="FOR CONFIRMATION" style="background-color: lightgreen;  color:black;">FOR CONFIRMATION</option>
+                                    <option value="FOR UPDATE" style="background-color: brown;">FOR UPDATE</option>
+                                    <option value="FOR DEV" style="background-color: darkred;">FOR DEV</option>
+                                    <option value="RESCHED ON" style="background-color: pink;">RESCHED ON</option>
+                                    <option value="ATS" style="background-color: peach;">ATS</option>
+                                    <option value="FOR DEPLOYMENT" style="background-color: brown;">FOR DEPLOYMENT</option>
                                 </select>
                             </div>
                         </div>
@@ -288,5 +289,65 @@
         </form>
     </div>
 
+    <script>
+        function display() {
+            var select = document.getElementById('exampleFormControlSelect1');
+            console.log(select.value);
+            switch(select.value) {
+                case 'DONE':case 'CONFIRMED OK':
+                    select.style.backgroundColor = 'green';
+                    select.style.color = 'white';
+                    break;
+                case 'OPEN':
+                    select.style.backgroundColor = 'purple';
+                    select.style.color = 'white';
+                    break;
+                case 'ON HOLD':
+                    select.style.backgroundColor = 'teal';
+                    select.style.color = 'white';
+                    break;
+                case 'URGENT':
+                    select.style.backgroundColor = 'red';
+                    select.style.color = 'white';
+                    break;
+                case 'CANCELLED':
+                    select.style.backgroundColor = 'black';
+                    select.style.color = 'white';
+                    break;
+                case 'ON QUE':
+                    select.style.backgroundColor = 'yellow'
+                    select.style.color = 'black';
+                    break;
+                case 'IN PROGRESS':
+                    select.style.backgroundColor = 'blue';
+                    break;
+                case 'FOR CONFIRMATION':
+                    select.style.backgroundColor = 'lightgreen';
+                    select.style.color = 'black';
+                    break;
+                case 'FOR UPDATE':
+                    select.style.backgroundColor = 'brown'
+                    select.style.color = 'white';
+                    break;
+                case 'FOR DEV':
+                    select.style.backgroundColor = 'darkred'
+                    select.style.color = 'white';
+                    break;
+                case 'RESCHED ON':
+                    select.style.backgroundColor = 'pink';
+                    select.style.color = 'white';
+                    break;
+                case 'ATS':
+                    select.style.backgroundColor = 'peach';
+                    select.style.color = 'white';
+                    break;
+                case 'FOR DEPLOYMENT':
+                    select.style.backgroundColor = 'brown';
+                    select.style.color = 'white';
+                    break;
+            }
+        }
+
+    </script>
 
     @endsection

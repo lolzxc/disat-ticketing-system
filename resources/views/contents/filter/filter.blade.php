@@ -1,15 +1,9 @@
 @extends('layouts.app')
 
 @section('stylesheet')
-<style>
-
-</style>
 
 @endsection
-
-
 @section('content')
-
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container">
         <a class="navbar-brand fw-bold fs-1 text-primary" iud>DISAT</a>
@@ -31,6 +25,12 @@
     </div>
 </nav>
 
+<div class="container">
+    <div class="go-back mt-4">
+        <a href="{{ url('index') }}" class="text-white" style="text-decoration: none;"><span><i class="fa-solid fa-arrow-left"></i></span> Go back to Home</a>
+    </div>
+</div>
+
 <div class="content text-white d-flex flex-grow-1 flex-column h-100">
     <div class="container-fluid">
         <div class="header d-flex justify-content-center align-items-center pt-5 border-bottom border-white mb-2">
@@ -38,8 +38,8 @@
         </div>
     </div>
 
-    <div class="container-fluid d-flex flex-column justify-content-center text-center">
-        <div class="container">
+    <div class="container-fluid d-flex justify-content-center text-center flex-column text-center">
+    <div class="container">
             <div class="row d-flex justify-content-center align-items-center text-center">
                 <div class="col-4">
                     <p class="mt-1 mb-0 fw-bold text-warning">FILTER BY STATUS:</p>
@@ -65,12 +65,12 @@
                 <th>Date of Creation</th>
                 <th>Status </th>
             </tr>
-            @foreach($sample as $feedback)
+            @foreach($feedbacks as $feedback)
             <tr class="border">
                 <td><a href="{{ route('view-feedback', [$feedback->user_id, $feedback->id]) }}"></a>{{$feedback->id}}</td>
                 <td>{{$feedback->school}}</td>
                 <td>{{$feedback->system}}</td>
-                <td>{{date('F j Y', strtotime($feedback->created_at))}}</td>
+                <td>{{ date('F j Y', strtotime($feedback->created_at)) }}</td>
                 @if($feedback->status == 'open' || $feedback->status == 'OPEN')
                 <td id='status' style="background-color:blue; color:white;">{{$feedback->status}}</td>
                 @elseif($feedback->status == 'CONFIRMED OK' || $feedback->status == 'DONE')
@@ -80,25 +80,14 @@
                 @elseif($feedback->status == 'PENDING')
                 <td id='status' style="background-color:red; color:white">{{$feedback->status}}</td>
                 @endif
-
             </tr>
             @endforeach
         </table>
-
     </div>
 
     <div style="display: flex; margin-top: 20px; justify-content:center">
         {{ $feedbacks->links() }}
     </div>
-
 </div>
-
-
-<script>
-    
-</script>
-
-
-
 
 @endsection

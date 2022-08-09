@@ -69,7 +69,7 @@
 
         .data tr {
             background-color: #eee;
-            border-top: 1px solid #fff;
+            /* border-top: 1px solid #fff; */
         }
 
         .data tr:hover {

@@ -169,6 +169,20 @@ class FeedbackController extends Controller
         return view('contents.search.search', compact('user', 'feedback'));
     }
 
+    public function filter($status)
+    {
+        Paginator::useBootstrap(); 
+        $user = User::where('id', '=', Session::get('loginId'))->first();
+        $feedbacks = DB::table('feedback')
+            ->where('feedback.status', '=', $status)
+            ->join('users', 'users.id', '=', 'feedback.user_id')
+            ->orderBy('feedback.id', 'desc')
+            ->select('feedback.*', 'users.school')
+            ->paginate(5);
+
+        return view('contents.filter.filter', compact('user', 'feedbacks'));
+    }
+
     public function generate_pdf($id)
     {
 
