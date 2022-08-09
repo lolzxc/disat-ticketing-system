@@ -37,6 +37,7 @@ Route::controller(FeedbackController::class)->group(function () {
 
     Route::get('/list/{id}', 'feedback_list')->name('feedback-list');
     Route::get('/search', 'search')->name('search');
+    Route::get('/filter/{status}', 'filter')->name('filter');
     Route::get('/generate-pdf/{id}', 'generate_pdf')->name('generate-pdf');
     
 });
